@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="description" content="Page personnel/Portfolio de Maxence LARMET, étudiant en informatique" />
+	<meta name="keywords"
+		content="HTML, CSS, JavaScript, Page Personnel, CV, Developpement, Programmation, DUT, Licence, Master, Informatique, Web, Developpeur, Code, Algorithme" />
+	<meta name="author" content="Maxence LARMET" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+
+	<title>Money</title>
+
+	<link rel="canonical" href="http://mlarmet.github.io/money" />
+
+	<!-- FONT -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+	<!-- STYLE -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+
+<body>
+
+	<main>
+		<div id="container">
+			<div id="settings">
+				<div id="pay" class="box">
+					<p>Salaire NET / mois</p>
+
+					<div id="pay-form">
+						<button id="remove" class="btn btn-primary btn-block icon-only">-</button>
+						<div class="input-group">
+							<input type="number" id="pay-input" class="form-control" placeholder="0" min="0" step="1"
+								value="2000">
+						</div>
+						<button id="add" class="btn btn-primary btn-block icon-only">+</button>
+					</div>
+				</div>
+
+				<div id="action" class="box">
+					<button id="validate" class="btn btn-success w-100">Démarrer</button>
+					<button id="reset" class="btn btn-danger w-100">Reset</button>
+				</div>
+			</div>
+
+			<div id="result">
+				<div id="time" class="box">
+					<p>Total gagné en <span id="time-value">0</span> sec</p>
+				</div>
+
+				<div id="money" class="box">
+					<p><span id="money-value"></span> €</p>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<!-- JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+
+	<script type="module" src="js/main.js"></script>
+</body>
+
+</html>
