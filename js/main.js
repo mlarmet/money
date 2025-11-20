@@ -20,7 +20,7 @@ const MIN_PRECISION = 0;
 const MAX_PRECISION = 4;
 const DEFAULT_PRECISION = 2;
 
-const DEFAULT_PAY = 1490;
+const DEFAULT_PAY = 1426;
 
 payInput.value = DEFAULT_PAY;
 
