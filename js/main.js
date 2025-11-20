@@ -8,11 +8,21 @@ const btnValidate = document.getElementById("validate");
 const payInput = document.getElementById("pay-input");
 
 const timeValue = document.getElementById("time-value");
-const moneyValue = document.getElementById("money-value");
+
+const totalHour = document.getElementById("total-hour");
+const totalDay = document.getElementById("total-day");
+const totalWeek = document.getElementById("total-week");
 
 const DELTA_CLICK = 100;
 const WORK_HOUR_IN_MONTH = 151.67;
-const PAY_PRECISION = 3;
+
+const MIN_PRECISION = 0;
+const MAX_PRECISION = 4;
+const DEFAULT_PRECISION = 2;
+
+const DEFAULT_PAY = 1490;
+
+payInput.value = DEFAULT_PAY;
 
 let isCounterActive = false;
 let startDate = null;
@@ -20,24 +30,54 @@ let startDate = null;
 let countInterval = null;
 let payEachSecond = 0;
 
+let payPrecision = DEFAULT_PRECISION;
+
 setIsCounterActive(false);
 
-let counter = new CountUp("money-value", 0, {
-	decimalPlaces: PAY_PRECISION, // nb de digits après la virgule
+const ops = {
+	decimalPlaces: payPrecision, // nb de digits après la virgule
 	separator: " ",
-	decimal: ",",
 	duration: 1,
+};
+
+let counter = new CountUp("money-value", 0, ops);
+
+// This is an example script, please modify as needed
+const rangeInput = document.getElementById("precision-number");
+const rangeOutput = document.getElementById("precision-number-value");
+
+// Set initial value
+rangeInput.value = payPrecision;
+rangeOutput.textContent = payPrecision;
+
+rangeInput.addEventListener("input", function () {
+	if (this.value < 0) this.value = MIN_PRECISION;
+	if (this.value > 4) this.value = MAX_PRECISION;
+
+	payPrecision = this.value;
+	rangeOutput.textContent = this.value;
+
+	const current = counter.frameVal;
+
+	const options = {
+		...structuredClone(ops),
+		decimalPlaces: payPrecision,
+		startVal: current,
+	};
+
+	counter.pauseResume();
+	counter = new CountUp("money-value", current, options);
+	counter.start();
+
+	count();
 });
 
 function count() {
-	const secondElapsed = (Date.now() - startDate) / 1000;
+	const timeElapsed = Date.now() - startDate;
+	timeValue.textContent = toHHMMSS(timeElapsed);
 
-	const money = (secondElapsed * payEachSecond).toFixed(PAY_PRECISION);
+	const money = ((timeElapsed / 1000) * payEachSecond).toFixed(payPrecision);
 	counter.update(money);
-
-	const time = secondElapsed.toFixed(0);
-
-	timeValue.textContent = time;
 }
 
 function start() {
@@ -46,7 +86,7 @@ function start() {
 	}
 
 	const pay = Number(payInput.value);
-	payEachSecond = pay / WORK_HOUR_IN_MONTH / 60 / 60;
+	payEachSecond = pay / WORK_HOUR_IN_MONTH / 3600;
 
 	startDate = Date.now();
 
@@ -57,12 +97,26 @@ function start() {
 
 	counter.start();
 
-	count();
 	countInterval = setInterval(count, 1000);
+	count();
+
+	const payEachHour = payEachSecond * 3600;
+	const payEachDay = payEachHour * 7;
+	const payEachWeek = payEachDay * 5;
+
+	totalHour.textContent = payEachHour.toFixed(payPrecision);
+	totalDay.textContent = payEachDay.toFixed(payPrecision);
+	totalWeek.textContent = payEachWeek.toFixed(payPrecision);
 }
 
 function reset() {
-	timeValue.textContent = "0";
+	timeValue.textContent = "00:00:00";
+
+	totalHour.textContent = "0";
+	totalDay.textContent = "0";
+	totalWeek.textContent = "0";
+
+	counter.pauseResume();
 	counter.reset();
 
 	clearInterval(countInterval);

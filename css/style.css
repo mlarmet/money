@@ -4,6 +4,21 @@
 	box-sizing: border-box;
 }
 
+:root {
+	--body-background: #e4e4e4;
+	--box-background: #fff;
+	--font-color: #1E1E1E;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--body-background: #1E1E1E;
+		--box-background: #2E2E2E;
+		--font-color: #fff;
+	}
+}
+
 html,
 body {
 	height: 100%;
@@ -15,8 +30,8 @@ body {
 	font-weight: 400;
 	font-style: normal;
 
-	background-color: #e4e4e4;
-	color: #1E1E1E;
+	background-color: var(--body-background);
+	color: var(--font-color);
 
 	margin: 0;
 }
@@ -35,13 +50,8 @@ p {
 }
 
 .btn.icon-only {
-	font-size: 18px;
 	flex-shrink: 0;
-
 	width: 38px;
-	height: 38px;
-
-	/* padding: 0 !important; */
 }
 
 main {
@@ -55,12 +65,16 @@ main {
 }
 
 .box {
-	background-color: #fff;
+	background-color: var(--box-background);
 	padding: 1rem 2rem;
 
 	border-radius: 10px;
 
 	height: 100%;
+}
+
+.box.full {
+	flex: 1;
 }
 
 #container {
@@ -71,49 +85,21 @@ main {
 	min-width: 550px;
 }
 
-
-#money {
-	display: flex;
-	justify-content: center;
-	gap: 0.5rem;
-
-	flex: 1;
-}
-
-#money p {
-	font-weight: 200;
-	font-size: 4rem;
-
-	line-height: 1.1;
-
-	width: fit-content;
-}
-
-#settings,
-#result {
-	width: 100%;
-}
-
-#settings,
-#action,
-#result {
+.container-row {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 1rem;
-}
 
-#pay,
-#action {
-	flex: 1;
+	width: 100%;
 }
 
 
 #pay,
 #action {
 	display: flex;
-	justify-content: center;
 	flex-flow: column;
+	justify-content: center;
 
 	gap: 1rem;
 }
@@ -125,15 +111,6 @@ main {
 
 	min-width: 200px;
 }
-
-#time {
-	display: flex;
-	align-items: center;
-
-	width: 141px;
-
-}
-
 
 /* ======= Hide Arrows from input number ======= */
 
@@ -151,3 +128,97 @@ main {
 }
 
 /* ========================================== */
+
+#time,
+#money {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#time {
+	width: 141px;
+}
+
+#money {
+	gap: 0.5rem;
+
+	flex: 1;
+}
+
+#money p {
+	font-weight: 200;
+	font-size: 4rem;
+
+	line-height: 1.1;
+
+	width: fit-content;
+}
+
+#options {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#details {
+	gap: 1rem;
+}
+
+#details,
+#details>div {
+	display: flex;
+	justify-content: center;
+}
+
+#details>div {
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+#precision {
+	display: flex;
+	gap: 1rem;
+}
+
+#precision label {
+	min-width: max-content;
+}
+
+/* ========================================== */
+
+/* =============== RWD ===================== */
+
+@media only screen and (max-width: 680px) {
+	#container {
+		min-width: 0;
+		width: 100%;
+
+		padding: 1rem 2rem;
+	}
+
+	.container-row {
+		flex-direction: column;
+	}
+
+	#result,
+	#stats {
+		flex-flow: column-reverse;
+	}
+
+	.box {
+		padding: 0.75rem 1.75rem;
+	}
+
+	.box,
+	#time {
+		width: 100%;
+	}
+
+}
+
+@media only screen and (max-width: 550px) {
+	#money p {
+		font-size: 2.25rem;
+	}
+}

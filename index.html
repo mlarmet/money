@@ -28,33 +28,59 @@
 
 	<main>
 		<div id="container">
-			<div id="settings">
-				<div id="pay" class="box">
-					<p>Salaire NET / mois</p>
+			<div id="settings" class="container-row">
+				<div id="pay" class="box full">
+					<p><strong>Salaire NET / mois</strong></p>
 
 					<div id="pay-form">
 						<button id="remove" class="btn btn-primary btn-block icon-only">-</button>
 						<div class="input-group">
-							<input type="number" id="pay-input" class="form-control" placeholder="0" min="0" step="1"
-								value="2000">
+							<input type="number" id="pay-input" class="form-control" placeholder="0" min="0" step="1">
 						</div>
 						<button id="add" class="btn btn-primary btn-block icon-only">+</button>
 					</div>
 				</div>
 
-				<div id="action" class="box">
+				<div id="action" class="box full">
 					<button id="validate" class="btn btn-success w-100">Démarrer</button>
 					<button id="reset" class="btn btn-danger w-100">Reset</button>
 				</div>
 			</div>
 
-			<div id="result">
+			<div id="result" class="container-row">
 				<div id="time" class="box">
-					<p>Total gagné en <span id="time-value">0</span> sec</p>
+					<p>Total gagné en <span id="time-value">00:00:00</span></p>
 				</div>
 
 				<div id="money" class="box">
 					<p><span id="money-value"></span> €</p>
+				</div>
+			</div>
+
+			<div id="stats" class="container-row">
+				<div id="options" class="box full">
+					<p class="mb-2 text-bold"><strong>Options</strong></p>
+
+					<div id="precision">
+						<label for="precision-number" class="form-label mb-0">
+							Précision :
+							<output for="precision-number" id="precision-number-value" aria-hidden="true"></output>
+						</label>
+
+						<input type="range" class="form-range" id="precision-number" min="0" max="4">
+					</div>
+				</div>
+				<div id="details" class="box">
+					<div>
+						<p>1 heure :</p>
+						<p>1 jour :</p>
+						<p>1 semaine :</p>
+					</div>
+					<div>
+						<p><span id="total-hour">0</span> €</p>
+						<p><span id="total-day">0</span> €</p>
+						<p><span id="total-week">0</span> €</p>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -62,8 +88,8 @@
 
 	<!-- JS -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 
+	<script src="js/time.js"></script>
 	<script type="module" src="js/main.js"></script>
 </body>
 
