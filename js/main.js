@@ -57,16 +57,17 @@ rangeInput.addEventListener("input", function () {
 	payPrecision = this.value;
 	rangeOutput.textContent = this.value;
 
-	const current = counter.frameVal;
+	const timeElapsed = Date.now() - startDate;
+	const money = ((timeElapsed / 1000) * payEachSecond).toFixedNoRound(payPrecision);
 
 	const options = {
-		...structuredClone(ops),
+		...ops,
 		decimalPlaces: payPrecision,
-		startVal: current,
+		startVal: money,
 	};
 
 	counter.pauseResume();
-	counter = new CountUp("money-value", current, options);
+	counter = new CountUp("money-value", null, options);
 	counter.start();
 
 	count();
@@ -76,7 +77,7 @@ function count() {
 	const timeElapsed = Date.now() - startDate;
 	timeValue.textContent = toHHMMSS(timeElapsed);
 
-	const money = ((timeElapsed / 1000) * payEachSecond).toFixed(payPrecision);
+	const money = ((timeElapsed / 1000) * payEachSecond).toFixedNoRound(payPrecision);
 	counter.update(money);
 }
 
@@ -104,9 +105,9 @@ function start() {
 	const payEachDay = payEachHour * 7;
 	const payEachWeek = payEachDay * 5;
 
-	totalHour.textContent = payEachHour.toFixed(payPrecision);
-	totalDay.textContent = payEachDay.toFixed(payPrecision);
-	totalWeek.textContent = payEachWeek.toFixed(payPrecision);
+	totalHour.textContent = payEachHour.toFixedNoRound(payPrecision);
+	totalDay.textContent = payEachDay.toFixedNoRound(payPrecision);
+	totalWeek.textContent = payEachWeek.toFixedNoRound(payPrecision);
 }
 
 function reset() {
